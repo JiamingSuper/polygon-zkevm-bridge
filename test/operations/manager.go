@@ -2,6 +2,7 @@ package operations
 
 import (
 	"context"
+	"fmt"
 	"math/big"
 	"os"
 	"os/exec"
@@ -144,10 +145,10 @@ func (m *Manager) CheckL2Claim(ctx context.Context, networkID, depositCnt uint) 
 
 // SendL1Deposit sends a deposit from l1 to l2.
 func (m *Manager) SendL1Deposit(ctx context.Context, tokenAddr common.Address, amount *big.Int,
-	destNetwork uint32, destAddr *common.Address,
+	destNetwork uint32, destAddr *common.Address, privateKey string,
 ) error {
 	client := m.clients[L1]
-	auth, err := client.GetSigner(ctx, accHexPrivateKeys[L1])
+	auth, err := client.GetSigner(ctx, privateKey)
 	if err != nil {
 		return err
 	}
@@ -157,8 +158,17 @@ func (m *Manager) SendL1Deposit(ctx context.Context, tokenAddr common.Address, a
 		return err
 	}
 
+	fmt.Printf("\n")
+	fmt.Printf("当前在执行SendL1Deposit的账户是: %s\n", destAddr)
+	fmt.Println(auth)
+	fmt.Printf("\n")
+	fmt.Printf("\n")
 	err = client.SendBridgeAsset(ctx, tokenAddr, amount, destNetwork, destAddr, []byte{}, auth)
 	if err != nil {
+		fmt.Printf("\n")
+		fmt.Println("错误账户： ", destAddr)
+		fmt.Println("错误内容： ", err)
+		fmt.Printf("\n")
 		return err
 	}
 
@@ -483,16 +493,14 @@ func (m *Manager) CheckAccountBalance(ctx context.Context, network NetworkSID, a
 }
 
 // CheckAccountTokenBalance checks the balance by address
-func (m *Manager) CheckAccountTokenBalance(ctx context.Context, network NetworkSID, tokenAddr common.Address, account *common.Address) (*big.Int, error) {
+func (m *Manager) CheckAccountTokenBalance(ctx context.Context, network NetworkSID, tokenAddr common.Address, account *common.Address, privateKey string) (*big.Int, error) {
 	client := m.clients[network]
-	auth, err := client.GetSigner(ctx, accHexPrivateKeys[network])
+	auth, err := client.GetSigner(ctx, privateKey)
 	if err != nil {
 		return big.NewInt(0), nil
 	}
 
-	if account == nil {
-		account = &auth.From
-	}
+	account = &auth.From
 	erc20Token, err := erc20.NewMatic(tokenAddr, client)
 	if err != nil {
 		return big.NewInt(0), nil
@@ -631,9 +639,9 @@ func (m *Manager) DeployBridgeMessageReceiver(ctx context.Context, network Netwo
 }
 
 // MintERC20 mint erc20 tokens
-func (m *Manager) MintERC20(ctx context.Context, erc20Addr common.Address, amount *big.Int, network NetworkSID) error {
+func (m *Manager) MintERC20(ctx context.Context, erc20Addr common.Address, amount *big.Int, network NetworkSID, privateKey string) error {
 	client := m.clients[network]
-	auth, err := client.GetSigner(ctx, accHexPrivateKeys[network])
+	auth, err := client.GetSigner(ctx, privateKey)
 	if err != nil {
 		return err
 	}

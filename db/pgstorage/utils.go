@@ -4,8 +4,8 @@ import (
 	"os"
 	"strconv"
 
-	"github.com/0xPolygonHermez/zkevm-bridge-service/etherman"
 	"github.com/0xPolygonHermez/zkevm-node/log"
+	"github.com/JiamingSuper/polygon-zkevm-bridge/etherman"
 	"github.com/ethereum/go-ethereum/accounts/abi"
 	"github.com/gobuffalo/packr/v2"
 	"github.com/jackc/pgx/v4"

@@ -3,8 +3,8 @@ package operations
 import (
 	"context"
 
-	"github.com/0xPolygonHermez/zkevm-bridge-service/bridgectrl/pb"
-	"github.com/0xPolygonHermez/zkevm-bridge-service/etherman"
+	"github.com/JiamingSuper/polygon-zkevm-bridge/bridgectrl/pb"
+	"github.com/JiamingSuper/polygon-zkevm-bridge/etherman"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/jackc/pgx/v4"
 )

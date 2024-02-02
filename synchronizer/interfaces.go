@@ -4,8 +4,8 @@ import (
 	"context"
 	"math/big"
 
-	"github.com/0xPolygonHermez/zkevm-bridge-service/etherman"
 	rpcTypes "github.com/0xPolygonHermez/zkevm-node/jsonrpc/types"
+	"github.com/JiamingSuper/polygon-zkevm-bridge/etherman"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/core/types"
 	"github.com/jackc/pgx/v4"

@@ -1,6 +1,6 @@
 package server
 
-import "github.com/0xPolygonHermez/zkevm-bridge-service/db"
+import "github.com/JiamingSuper/polygon-zkevm-bridge/db"
 
 // Config struct
 type Config struct {

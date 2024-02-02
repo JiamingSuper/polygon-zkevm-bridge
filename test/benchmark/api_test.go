@@ -7,12 +7,12 @@ import (
 	"math/rand"
 	"testing"
 
-	"github.com/0xPolygonHermez/zkevm-bridge-service/bridgectrl"
-	"github.com/0xPolygonHermez/zkevm-bridge-service/etherman"
-	"github.com/0xPolygonHermez/zkevm-bridge-service/test/client"
-	"github.com/0xPolygonHermez/zkevm-bridge-service/test/operations"
-	"github.com/0xPolygonHermez/zkevm-bridge-service/utils"
 	"github.com/0xPolygonHermez/zkevm-node/log"
+	"github.com/JiamingSuper/polygon-zkevm-bridge/bridgectrl"
+	"github.com/JiamingSuper/polygon-zkevm-bridge/etherman"
+	"github.com/JiamingSuper/polygon-zkevm-bridge/test/client"
+	"github.com/JiamingSuper/polygon-zkevm-bridge/test/operations"
+	"github.com/JiamingSuper/polygon-zkevm-bridge/utils"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/stretchr/testify/require"
 )

@@ -8,11 +8,11 @@ import (
 	"testing"
 	"time"
 
-	"github.com/0xPolygonHermez/zkevm-bridge-service/bridgectrl"
-	"github.com/0xPolygonHermez/zkevm-bridge-service/bridgectrl/pb"
-	"github.com/0xPolygonHermez/zkevm-bridge-service/db"
-	"github.com/0xPolygonHermez/zkevm-bridge-service/server"
-	"github.com/0xPolygonHermez/zkevm-bridge-service/test/operations"
+	"github.com/JiamingSuper/polygon-zkevm-bridge/bridgectrl"
+	"github.com/JiamingSuper/polygon-zkevm-bridge/bridgectrl/pb"
+	"github.com/JiamingSuper/polygon-zkevm-bridge/db"
+	"github.com/JiamingSuper/polygon-zkevm-bridge/server"
+	"github.com/JiamingSuper/polygon-zkevm-bridge/test/operations"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/stretchr/testify/require"
 )

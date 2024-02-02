@@ -6,9 +6,9 @@ import (
 	"testing"
 	"time"
 
-	ctmtypes "github.com/0xPolygonHermez/zkevm-bridge-service/claimtxman/types"
-	"github.com/0xPolygonHermez/zkevm-bridge-service/db/pgstorage"
-	"github.com/0xPolygonHermez/zkevm-bridge-service/etherman"
+	ctmtypes "github.com/JiamingSuper/polygon-zkevm-bridge/claimtxman/types"
+	"github.com/JiamingSuper/polygon-zkevm-bridge/db/pgstorage"
+	"github.com/JiamingSuper/polygon-zkevm-bridge/etherman"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/core/types"
 	"github.com/stretchr/testify/require"

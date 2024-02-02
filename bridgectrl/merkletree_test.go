@@ -11,9 +11,9 @@ import (
 	"runtime"
 	"testing"
 
-	"github.com/0xPolygonHermez/zkevm-bridge-service/db/pgstorage"
-	"github.com/0xPolygonHermez/zkevm-bridge-service/etherman"
-	"github.com/0xPolygonHermez/zkevm-bridge-service/test/vectors"
+	"github.com/JiamingSuper/polygon-zkevm-bridge/db/pgstorage"
+	"github.com/JiamingSuper/polygon-zkevm-bridge/etherman"
+	"github.com/JiamingSuper/polygon-zkevm-bridge/test/vectors"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"

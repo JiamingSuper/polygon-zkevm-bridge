@@ -3,8 +3,8 @@ package bridgectrl
 import (
 	"context"
 
-	"github.com/0xPolygonHermez/zkevm-bridge-service/etherman"
-	"github.com/0xPolygonHermez/zkevm-bridge-service/utils/gerror"
+	"github.com/JiamingSuper/polygon-zkevm-bridge/etherman"
+	"github.com/JiamingSuper/polygon-zkevm-bridge/utils/gerror"
 	"github.com/jackc/pgx/v4"
 )
 

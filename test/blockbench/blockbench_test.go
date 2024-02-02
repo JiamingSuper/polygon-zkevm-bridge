@@ -8,9 +8,6 @@ import (
 	"testing"
 	"time"
 
-	// "github.com/0xPolygonHermez/zkevm-bridge-service/bridgectrl"
-	// "github.com/0xPolygonHermez/zkevm-bridge-service/db"
-	// "github.com/0xPolygonHermez/zkevm-bridge-service/server"
 	"github.com/0xPolygonHermez/zkevm-bridge-service/bridgectrl"
 	"github.com/0xPolygonHermez/zkevm-bridge-service/bridgectrl/pb"
 	"github.com/0xPolygonHermez/zkevm-bridge-service/db"

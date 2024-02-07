@@ -2,12 +2,18 @@ package operations
 
 import (
 	"context"
-	"fmt"
 	"math/big"
 	"os"
 	"os/exec"
 	"time"
 
+	"github.com/0xPolygonHermez/zkevm-node/encoding"
+	erc20 "github.com/0xPolygonHermez/zkevm-node/etherman/smartcontracts/matic"
+	"github.com/0xPolygonHermez/zkevm-node/etherman/smartcontracts/polygonzkevmbridge"
+	"github.com/0xPolygonHermez/zkevm-node/etherman/smartcontracts/polygonzkevmglobalexitroot"
+	"github.com/0xPolygonHermez/zkevm-node/log"
+	"github.com/0xPolygonHermez/zkevm-node/test/contracts/bin/ERC20"
+	"github.com/0xPolygonHermez/zkevm-node/test/operations"
 	"github.com/JiamingSuper/polygon-zkevm-bridge/bridgectrl"
 	"github.com/JiamingSuper/polygon-zkevm-bridge/bridgectrl/pb"
 	"github.com/JiamingSuper/polygon-zkevm-bridge/db"
@@ -16,13 +22,6 @@ import (
 	"github.com/JiamingSuper/polygon-zkevm-bridge/server"
 	"github.com/JiamingSuper/polygon-zkevm-bridge/utils"
 	"github.com/JiamingSuper/polygon-zkevm-bridge/utils/gerror"
-	"github.com/0xPolygonHermez/zkevm-node/encoding"
-	erc20 "github.com/0xPolygonHermez/zkevm-node/etherman/smartcontracts/matic"
-	"github.com/0xPolygonHermez/zkevm-node/etherman/smartcontracts/polygonzkevmbridge"
-	"github.com/0xPolygonHermez/zkevm-node/etherman/smartcontracts/polygonzkevmglobalexitroot"
-	"github.com/0xPolygonHermez/zkevm-node/log"
-	"github.com/0xPolygonHermez/zkevm-node/test/contracts/bin/ERC20"
-	"github.com/0xPolygonHermez/zkevm-node/test/operations"
 	"github.com/ethereum/go-ethereum/accounts/abi/bind"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/core/types"
@@ -158,17 +157,8 @@ func (m *Manager) SendL1Deposit(ctx context.Context, tokenAddr common.Address, a
 		return err
 	}
 
-	fmt.Printf("\n")
-	fmt.Printf("当前在执行SendL1Deposit的账户是: %s\n", destAddr)
-	fmt.Println(auth)
-	fmt.Printf("\n")
-	fmt.Printf("\n")
 	err = client.SendBridgeAsset(ctx, tokenAddr, amount, destNetwork, destAddr, []byte{}, auth)
 	if err != nil {
-		fmt.Printf("\n")
-		fmt.Println("错误账户： ", destAddr)
-		fmt.Println("错误内容： ", err)
-		fmt.Printf("\n")
 		return err
 	}
 
@@ -178,10 +168,10 @@ func (m *Manager) SendL1Deposit(ctx context.Context, tokenAddr common.Address, a
 
 // SendL2Deposit sends a deposit from l2 to l1.
 func (m *Manager) SendL2Deposit(ctx context.Context, tokenAddr common.Address, amount *big.Int,
-	destNetwork uint32, destAddr *common.Address,
+	destNetwork uint32, destAddr *common.Address, privateKey string,
 ) error {
 	client := m.clients[L2]
-	auth, err := client.GetSigner(ctx, accHexPrivateKeys[L2])
+	auth, err := client.GetSigner(ctx, privateKey)
 	if err != nil {
 		return err
 	}
@@ -555,9 +545,9 @@ func (m *Manager) GetBridgeInfoByDestAddr(ctx context.Context, addr *common.Addr
 }
 
 // SendL1Claim send an L1 claim
-func (m *Manager) SendL1Claim(ctx context.Context, deposit *pb.Deposit, smtProof [mtHeight][32]byte, globalExitRoot *etherman.GlobalExitRoot) error {
+func (m *Manager) SendL1Claim(ctx context.Context, deposit *pb.Deposit, smtProof [mtHeight][32]byte, globalExitRoot *etherman.GlobalExitRoot, privateKey string) error {
 	client := m.clients[L1]
-	auth, err := client.GetSigner(ctx, accHexPrivateKeys[L1])
+	auth, err := client.GetSigner(ctx, privateKey)
 	if err != nil {
 		return err
 	}
@@ -566,9 +556,9 @@ func (m *Manager) SendL1Claim(ctx context.Context, deposit *pb.Deposit, smtProof
 }
 
 // SendL2Claim send an L2 claim
-func (m *Manager) SendL2Claim(ctx context.Context, deposit *pb.Deposit, smtProof [mtHeight][32]byte, globalExitRoot *etherman.GlobalExitRoot) error {
+func (m *Manager) SendL2Claim(ctx context.Context, deposit *pb.Deposit, smtProof [mtHeight][32]byte, globalExitRoot *etherman.GlobalExitRoot, privateKey string) error {
 	client := m.clients[L2]
-	auth, err := client.GetSigner(ctx, accHexPrivateKeys[L2])
+	auth, err := client.GetSigner(ctx, privateKey)
 	if err != nil {
 		return err
 	}
